@@ -93,25 +93,43 @@ def play_turn(player_name):
 def main():
     """Main game loop."""
     # Initialize player scores
-    player_scores = {'Player 1': 0, 'Player 2': 0}
-    target_score = 30
-    players = ['Player 1', 'Player 2']
-    current_player_index = 0
 
+    win_counter = {'Player 1': 0, 'Player 2': 0}
     while True:
-        player_name = players[current_player_index]
-        print(f"\n{player_name}'s total score: {player_scores[player_name]}")
-        turn_score = play_turn(player_name)
-        player_scores[player_name] += turn_score
-        print(f"{player_name}'s updated score: {player_scores[player_name]}")
+        player_scores = {'Player 1': 0, 'Player 2': 0}
+        #Commit change #1: user can enter score
+        target_score = int(input("Enter the Target Score:"))
+        players = ['Player 1', 'Player 2']
+        current_player_index = 0
 
-        # Check if the player has reached the target score
-        if player_scores[player_name] >= target_score:
-            print(f"\n{player_name} wins the game with {player_scores[player_name]} points!")
+        while True:
+            player_name = players[current_player_index]
+            print(f"\n{player_name}'s total score: {player_scores[player_name]}")
+            turn_score = play_turn(player_name)
+            player_scores[player_name] += turn_score
+            print(f"{player_name}'s updated score: {player_scores[player_name]}")
+
+            # Check if the player has reached the target score
+            if player_scores[player_name] >= target_score:
+                print(f"\n{player_name} wins the game with {player_scores[player_name]} points!")
+                win_counter[player_name] += 1
+                break
+
+            # Switch to the next player
+            current_player_index = (current_player_index + 1) % len(players)
+
+        #Commit change #3: score counter
+        print("\nCurrent win count:")
+        for player, wins in win_counter.items ():
+            print(f"{player}: {wins} wins")
+
+        #Commit change #2: user can play again
+        player_again = input("Do you want to play again?")
+        if player_again == "no":
+            print("\nThanks for playing!")
+            for player, wins in win_counter.items ():
+                print(f"{player}: {wins} wins")
             break
-
-        # Switch to the next player
-        current_player_index = (current_player_index + 1) % len(players)
 
 if __name__ == "__main__":
     main()
