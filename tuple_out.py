@@ -1,4 +1,5 @@
 import random
+import time
 
 def roll_dice(num):
     """Roll the specified number of dice."""
@@ -93,11 +94,15 @@ def play_turn(player_name):
 def main():
     """Main game loop."""
     # Initialize player scores
-
     win_counter = {'Player 1': 0, 'Player 2': 0}
+    
     while True:
+        # Record the start time of the game
+        start_time = time.time()
+
         player_scores = {'Player 1': 0, 'Player 2': 0}
-        #Commit change #1: user can enter score
+        
+        # Commit change #1: user can enter score
         target_score = int(input("Enter the Target Score:"))
         players = ['Player 1', 'Player 2']
         current_player_index = 0
@@ -118,16 +123,27 @@ def main():
             # Switch to the next player
             current_player_index = (current_player_index + 1) % len(players)
 
-        #Commit change #3: score counter
+        # Commit change #3: score counter
         print("\nCurrent win count:")
-        for player, wins in win_counter.items ():
+        for player, wins in win_counter.items():
             print(f"{player}: {wins} wins")
 
-        #Commit change #2: user can play again
-        player_again = input("Do you want to play again?")
-        if player_again == "no":
+        # Commit change #2: user can play again
+        player_again = input("Do you want to play again? (yes/no): ")
+        if player_again.lower() == "no":
+            # Record the end time of the game
+            end_time = time.time()
+            
+            # Calculate the duration of the game
+            game_duration = end_time - start_time
+            minutes = int(game_duration // 60)
+            seconds = int(game_duration % 60)
+            
+            # Display the game duration
+            print(f"\nThe game lasted {minutes} minutes and {seconds} seconds.")
+
             print("\nThanks for playing!")
-            for player, wins in win_counter.items ():
+            for player, wins in win_counter.items():
                 print(f"{player}: {wins} wins")
             break
 
