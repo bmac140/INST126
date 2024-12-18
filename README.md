@@ -79,4 +79,7 @@ Do you want to play again?no
 Thanks for playing!
 Player 1: 2 wins
 Player 2: 0 wins
+
+The game Lasted 2 minutes 24 seconds!
+
 (base) brianmcdowell@Brians-MacBook-Pro-5 INST126 % 
